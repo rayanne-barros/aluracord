@@ -1,6 +1,6 @@
 ![licence mit](https://img.shields.io/badge/licence-MIT-blue.svg)
 !['node-version'](https://img.shields.io/badge/node-14.16.0-green)
-<img src="https://img.shields.io/badge/RayanneBarrros-Animais Fantástico-blue"/>
+<img src="https://img.shields.io/badge/RayanneBarrros-Aluracord-blue"/>
 <br>
 
 
