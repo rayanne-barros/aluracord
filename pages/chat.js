@@ -5,11 +5,11 @@ import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMzNDU1NywiZXhwIjoxOTU4OTEwNTU3fQ.qNiiKrtnCrZBQiEbQ27W8re_fvccFCthkapUr0ibbEY';
-const SUPABASE_URL = 'https://pamsdytbdepcxsksahpb.supabase.co';
-// const URL_SUPABASE = process.env.NEXT_PUBLIC_SUPABASE_URL;
-// const ANON_KEY_SUPABASE = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+const supabaseClient = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 
 function escutaMensagensEmTempoReal(adicionaMensagem) {
@@ -68,14 +68,16 @@ export default function ChatPage() {
   }
 
   function handleDeletaMensagem(id) {
-    const mensagemFiltrada = setListaMensagem(listaMensagem.filter((mensagem) => {
-      return mensagem.id !== id
-    }))
     supabaseClient
       .from('mensagens')
       .delete()
-      .match({ id: id })
+      .match({ id })
       .then(() => {
+        let mensagemFiltrada = listaMensagem.filter((mensagem) => {
+          if (mensagem.id !== id) {
+            return mensagem;
+          }
+        });
         setListaMensagem(mensagemFiltrada);
       })
   }
